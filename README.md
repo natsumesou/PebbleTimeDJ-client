@@ -1,2 +1,6 @@
-# pebble-happy-analytics
-measure emotion by pebble time
+# PebbleTimeDJ client
+
+client for PebbleTimeDj
+
+This Project need Pebble Time
+https://getpebble.com/pebble_time
