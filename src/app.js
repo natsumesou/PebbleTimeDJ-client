@@ -11,55 +11,53 @@ var request = require('request');
 var FILTER_TYPES = [
   "low pass",
   "high pass",
-  "band pass",
 ];
-var currentType = FILTER_TYPES[0];
-var FILTER_VALUE = 0.2;
+var index = 0;
+var FILTER_VALUE = 0.1;
+var SPEED_VALUE = 0.1;
+var DURATION = 1;
 
-var items = [];
-for(var i in FILTER_TYPES) {
-  items.push({title: FILTER_TYPES[i]});
-}
-  
+var items = [
+  {title: "low pass +"},
+  {title: "low pass -"},
+  {title: "high pass +"},
+  {title: "high pass -"},
+  {title: "next music"},
+  {title: "speed up"},
+  {title: "speed down"},
+];
+
 var main = new UI.Menu({
   backgroundColor: 'black',
   textColor: 'blue',
   highlightBackgroundColor: 'blue',
   highlightTextColor: 'black',
   sections: [{
-    title: 'filter type',
+    title: 'DJ controller',
     items: items,
   }]
 });
 main.show();
              
 main.on('select', function(e) {
-  currentType = FILTER_TYPES[e.itemIndex];
+  index = e.itemIndex;
 });
 
 Accel.init();
 Accel.on("tap", function(e) {
-  switch(e.axis) {
-    case "x":
-      request.skipMusic();
-      break;
-    case "y":
-      var value = 0;
-      if (e.direction > 0) {
-        value = FILTER_VALUE;
-      } else {
-        value = - FILTER_VALUE;
-      }
-      request.filter(currentType, value);
-      break;
-    case "z":
-      var speed = 0;
-      if (e.direction > 0) {
-        speed = FILTER_VALUE;
-      } else {
-        speed = - FILTER_VALUE;
-      }
-      request.speed(speed);
-      break;
+  if(index === 0) {
+    request.filter(FILTER_TYPES[0], -FILTER_VALUE, DURATION);
+  } else if(index === 1) {
+    request.filter(FILTER_TYPES[0], FILTER_VALUE, DURATION);
+  } else if(index === 2) {
+    request.filter(FILTER_TYPES[1], FILTER_VALUE, DURATION);
+  } else if(index === 3) {
+    request.filter(FILTER_TYPES[1], -FILTER_VALUE, DURATION);
+  } else if(index === 4) {
+    request.skipMusic();
+  } else if(index === 5) {
+    request.speed(SPEED_VALUE, DURATION);
+  } else if(index === 6) {
+    request.speed(-SPEED_VALUE, DURATION);
   }
 });

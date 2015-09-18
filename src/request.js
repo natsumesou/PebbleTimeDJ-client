@@ -5,16 +5,18 @@ var request = {
   skipMusic: function() {
     this._request("skip");
   },
-  filter: function(type, value) {
+  filter: function(type, value, duration) {
     var data = {
       filterType: type,
       value: value,
+      duration: duration,
     };
-    this._request("filter", data);
+    this._request("filter", data, duration);
   },
-  speed: function(speed) {
+  speed: function(speed, duration) {
     var data = {
       value: speed,
+      duration: duration,
     };
     this._request("speed", data);
   },
