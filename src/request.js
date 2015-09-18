@@ -1,22 +1,22 @@
 var ajax = require('ajax');
 
 var request = {
-  url: "http://natsu.me/pebble-dj",
+  url: "http://dj.natsu.me/control",
   skipMusic: function() {
     this._request("skip");
   },
   filter: function(type, value) {
     var data = {
-      type: type,
+      filterType: type,
       value: value,
     };
     this._request("filter", data);
   },
-  volume: function(volume) {
+  speed: function(speed) {
     var data = {
-      volume: volume,
+      value: speed,
     };
-    this._request("volume", data);
+    this._request("speed", data);
   },
   _request: function(type, data) {
     data = data || {};

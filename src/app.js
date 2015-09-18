@@ -14,6 +14,7 @@ var FILTER_TYPES = [
   "band pass",
 ];
 var currentType = FILTER_TYPES[0];
+var FILTER_VALUE = 0.2;
 
 var items = [];
 for(var i in FILTER_TYPES) {
@@ -37,7 +38,6 @@ main.on('select', function(e) {
 });
 
 Accel.init();
-
 Accel.on("tap", function(e) {
   switch(e.axis) {
     case "x":
@@ -46,20 +46,20 @@ Accel.on("tap", function(e) {
     case "y":
       var value = 0;
       if (e.direction > 0) {
-        value = 0.2;
+        value = FILTER_VALUE;
       } else {
-        value = -0.2;
+        value = - FILTER_VALUE;
       }
       request.filter(currentType, value);
       break;
     case "z":
-      var volume = 0;
+      var speed = 0;
       if (e.direction > 0) {
-        volume = 0.2;
+        speed = FILTER_VALUE;
       } else {
-        volume = -0.2;
+        speed = - FILTER_VALUE;
       }
-      request.volume(volume);
+      request.speed(speed);
       break;
   }
 });
