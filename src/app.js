@@ -56,8 +56,8 @@ Accel.on("tap", function(e) {
   } else if(index === 4) {
     request.skipMusic();
   } else if(index === 5) {
-    request.speed(SPEED_VALUE, DURATION);
+    request.speed(SPEED_VALUE, 5);
   } else if(index === 6) {
-    request.speed(-SPEED_VALUE, DURATION);
+    request.speed(-SPEED_VALUE, 5);
   }
 });
